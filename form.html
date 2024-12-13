@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if transaction %}Edit{% else %}Create{% endif %} Transaction</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>{% if transaction %}Edit{% else %}Create{% endif %} Transaction</h1>
+    <form method="POST">
+        <label>Amount:</label>
+        <input type="number" step="0.01" name="amount" value="{{ transaction[1] if transaction }}" required>
+        <label>Type:</label>
+        <select name="transaction_type" required>
+            <option value="Debit" {% if transaction and transaction[2] == 'Debit' %}selected{% endif %}>Debit</option>
+            <option value="Credit" {% if transaction and transaction[2] == 'Credit' %}selected{% endif %}>Credit</option>
+        </select>
+        <label>Description:</label>
+        <input type="text" name="description" value="{{ transaction[3] if transaction }}">
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
